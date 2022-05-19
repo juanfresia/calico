@@ -76,7 +76,7 @@ If you notice `{{site.noderunning}}` using high CPU:
   
 ### eBPF program debug logs
 
-{{site.prodname}}'s eBPF programs contain optional detailed debug logging.  Although th logs can be very verbose (because
+{{site.prodname}}'s eBPF programs contain optional detailed debug logging.  Although the logs can be very verbose (because
 the programs will log every packet), they can be invaluable to diagnose eBPF program issues.  To enable the log, set the 
 `bpfLogLevel` Felix configuration setting to `Debug`.  
 
@@ -174,7 +174,7 @@ A number of problems can reduce the performance of the eBPF dataplane.
   
   To examine the configuration:
   ```bash
-  kubectl get felixconfiguration -o yaml
+  calicoctl get felixconfiguration -o yaml
   ```
   
   ```yaml

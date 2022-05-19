@@ -56,7 +56,7 @@ function DownloadFiles()
 function PrepareKubernetes()
 {
     DownloadFiles
-    ipmo -DisableNameChecking C:\k\hns.psm1
+    ipmo C:\k\hns.psm1
     InstallK8sBinaries
 
     # Prepull and tag the pause image for docker
@@ -104,8 +104,7 @@ function GetPlatformType()
     # EC2
     $restError = $null
     Try {
-        $token = Invoke-RestMethod -Headers @{"X-aws-ec2-metadata-token-ttl-seconds" = "300"} -Method PUT -Uri http://169.254.169.254/latest/api/token -ErrorAction Ignore
-        $awsNodeName = Invoke-RestMethod -Headers @{"X-aws-ec2-metadata-token" = $token} -Method GET -Uri http://169.254.169.254/latest/meta-data/local-hostname -ErrorAction Ignore
+        $awsNodeName=Invoke-RestMethod -uri http://169.254.169.254/latest/meta-data/local-hostname -ErrorAction Ignore
     } Catch {
         $restError = $_
     }
@@ -393,8 +392,8 @@ if (!(Test-Path $helperv2))
 {
     Invoke-WebRequest https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/windows/helper.v2.psm1 -O $BaseDir\helper.v2.psm1
 }
-ipmo -force -DisableNameChecking $helper
-ipmo -force -DisableNameChecking $helperv2
+ipmo -force $helper
+ipmo -force $helperv2
 
 if (!(Test-Path $CalicoZip))
 {
